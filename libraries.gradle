@@ -18,6 +18,7 @@ def hilt_compiler_version = "2.36"
 def logger_version = "4.9.1"
 def paging_version = "3.0.0-alpha04"
 def lottie_version ="3.7.0"
+def epoxy_version = "4.4.4"
 
 
 ext {
@@ -39,6 +40,8 @@ ext {
             "com.google.dagger:hilt-android:$hilt_version",
             "androidx.paging:paging-runtime:$paging_version",
             "androidx.paging:paging-runtime-ktx:$paging_version",
+            //Epoxy recyclerview
+            "com.airbnb.android:epoxy:$epoxy_version",
 
 
             //coil

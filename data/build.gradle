@@ -34,10 +34,12 @@ android {
 }
 
 dependencies {
+
     implementation libs
     kapt kaptLibs
     coreLibraryDesugaring coreLibDesugaring
     testImplementation testLibraries
     androidTestImplementation androidTestLibraries
     debugImplementation debugLibraries
+
 }

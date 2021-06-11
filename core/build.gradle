@@ -52,6 +52,7 @@ preBuild.dependsOn(formatKotlin)
 kapt {
     correctErrorTypes true
 }
+
 dependencies {
     api project(':data')
     implementation libs
