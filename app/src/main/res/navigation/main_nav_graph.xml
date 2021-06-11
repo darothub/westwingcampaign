@@ -2,4 +2,16 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_nav_graph" />
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/landingFragment">
+    <fragment
+        android:id="@+id/landingFragment"
+        android:name="com.assessment.westwingcampaign.ui.fragments.LandingFragment"
+        android:label="fragment_landing"
+        tools:layout="@layout/fragment_landing" />
+    <fragment
+        android:id="@+id/campaignDetailsFragment"
+        android:name="com.assessment.westwingcampaign.ui.fragments.CampaignDetailsFragment"
+        android:label="fragment_campaign_details"
+        tools:layout="@layout/fragment_campaign_details" />
+</navigation>
