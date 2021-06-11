@@ -1,5 +1,6 @@
 package com.assessment.westwingcampaign.ui.fragments
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -7,12 +8,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.assessment.data.campaign.viewmodel.CampaignListViewModel
 import com.assessment.westwingcampaign.R
 import com.assessment.westwingcampaign.databinding.FragmentLandingBinding
 import com.assessment.westwingcampaign.ui.adapters.CampaignViewAdapter
 import com.assessment.westwingcampaign.ui.adapters.ItemSpaceDecoration
+import com.assessment.westwingcampaign.utils.checkOrientation
 import com.darotpeacedude.core.utils.getName
 import com.darotpeacedude.eivom.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,11 +59,19 @@ class LandingFragment : Fragment(R.layout.fragment_landing) {
     }
 
     private fun setupView() {
-        binding.campaignListErcv.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = campaignViewAdapter
-            layoutManager = LinearLayoutManager(requireContext())
-            addItemDecoration(ItemSpaceDecoration(8F))
+        val orientation = checkOrientation()
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            binding.campaignListErcv.apply {
+                layoutManager = GridLayoutManager(requireContext(), 2)
+                adapter = campaignViewAdapter
+                addItemDecoration(ItemSpaceDecoration(8, 2))
+            }
+        } else {
+            binding.campaignListErcv.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = campaignViewAdapter
+                addItemDecoration(ItemSpaceDecoration(8, 1))
+            }
         }
     }
 }

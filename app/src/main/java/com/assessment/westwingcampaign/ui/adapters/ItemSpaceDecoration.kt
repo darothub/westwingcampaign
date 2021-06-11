@@ -6,43 +6,26 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
-class ItemSpaceDecoration(private val space: Float, val verticalOrientation: Boolean = true) : ItemDecoration() {
+class ItemSpaceDecoration(private val space: Int, private val columns: Int) : ItemDecoration() {
     override fun getItemOffsets(
         outRect: Rect,
         view: View,
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        outRect.top = SizeUtils.dp2px(view.context, space)
-        if (verticalOrientation) {
-            if (parent.getChildAdapterPosition(view) == 0) {
-                outRect.set(
-                    0,
-                    SizeUtils.dp2px(view.context, space),
-                    0,
-                    SizeUtils.dp2px(view.context, space)
-                )
-            } else {
-                outRect.set(0, 0, 0, SizeUtils.dp2px(view.context, space))
-            }
-        } else {
-            if (parent.getChildAdapterPosition(view) == 0) {
-                outRect.set(SizeUtils.dp2px(view.context, space), 0, 0, 0)
-            } else {
-                outRect.set(
-                    SizeUtils.dp2px(view.context, space),
-                    0,
-                    SizeUtils.dp2px(view.context, space),
-                    0
-                )
-            }
+        val position = parent.getChildLayoutPosition(view)
+        // set right margin to all
+        outRect.right = space
+        // set bottom space to all
+        outRect.bottom = space
+        // we only add top space to the first row
+        if (position <columns) {
+            outRect.top = space
+        }
+        // add left space only to the first column
+        if (position % columns == 0) {
+            outRect.left = space
         }
     }
 }
 
-object SizeUtils {
-    fun dp2px(context: Context, dpValue: Float): Int {
-        val scale: Float = context.resources.displayMetrics.density
-        return (dpValue * scale + 0.5f).toInt()
-    }
-}

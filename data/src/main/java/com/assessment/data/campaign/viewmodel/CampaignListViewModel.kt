@@ -26,9 +26,9 @@ class CampaignListViewModel @Inject constructor(
     val _campaignStateFlow = MutableStateFlow(emptyList<CampaignDetails>())
     val campaignStateFlow get() = _campaignStateFlow
 
-//    init {
-//        networkMonitor()
-//    }
+    init {
+        networkMonitor()
+    }
 
     suspend fun getCampaignData() {
         Log.i(TAG, "${repositoryImpl.getCampaigns().metadata.data}")
