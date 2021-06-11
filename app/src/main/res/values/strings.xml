@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WestWingCampaign</string>
+    <string name="campaign_name">Campaign name</string>
 </resources>

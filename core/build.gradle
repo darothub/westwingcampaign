@@ -1,8 +1,7 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
     id "org.jmailen.kotlinter"
-    id "androidx.navigation.safeargs.kotlin"
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
@@ -11,18 +10,14 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
-    buildFeatures {
-        viewBinding true
-    }
-
     defaultConfig {
-        applicationId "com.assessment.westwingcampaign"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -32,7 +27,6 @@ android {
         }
     }
     compileOptions {
-        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -40,19 +34,9 @@ android {
         jvmTarget = '1.8'
     }
 }
-kotlinter {
-    ignoreFailures = false
-    indentSize = 4
-    reporters = ['checkstyle', 'plain']
-    experimentalRules = false
-    disabledRules = ["no-wildcard-imports"]
-}
-preBuild.dependsOn(formatKotlin)
 
 dependencies {
-
-    implementation project(':core')
-
+    api project(':data')
     implementation libs
     kapt kaptLibs
     coreLibraryDesugaring coreLibDesugaring
