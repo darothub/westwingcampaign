@@ -12,6 +12,7 @@ import com.assessment.data.campaign.viewmodel.CampaignListViewModel
 import com.assessment.westwingcampaign.R
 import com.assessment.westwingcampaign.databinding.FragmentLandingBinding
 import com.assessment.westwingcampaign.ui.adapters.CampaignViewAdapter
+import com.assessment.westwingcampaign.ui.adapters.ItemSpaceDecoration
 import com.darotpeacedude.core.utils.getName
 import com.darotpeacedude.eivom.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,6 +60,7 @@ class LandingFragment : Fragment(R.layout.fragment_landing) {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = campaignViewAdapter
             layoutManager = LinearLayoutManager(requireContext())
+            addItemDecoration(ItemSpaceDecoration(8F))
         }
     }
 }

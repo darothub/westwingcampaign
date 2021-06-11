@@ -20,7 +20,6 @@ class CampaignViewAdapter(var listener: (CampaignDetails) -> Unit) : RecyclerVie
     }
     override fun getItemCount(): Int = list.size
     fun setData(newList: List<CampaignDetails>) {
-        list.clear()
         val withName = newList.filter { !it.name.isNullOrEmpty() }
         list.addAll(withName)
         notifyDataSetChanged()
