@@ -50,7 +50,6 @@ kotlinter {
 preBuild.dependsOn(formatKotlin)
 
 dependencies {
-
     implementation project(':core')
 
     implementation libs
