@@ -1,5 +1,7 @@
 package com.assessment.data.campaign.model
 
+import java.io.Serializable
+
 
 data class CampaignDetails (
     val name: String,
@@ -7,12 +9,4 @@ data class CampaignDetails (
     val urlKey: String,
     val image: CampaignImage,
     val view:Int = 1
-){
-    var id:Long = 0
-    companion object {
-        var staticId = 0.toLong()
-    }
-    init {
-        id = ++staticId
-    }
-}
+):Serializable

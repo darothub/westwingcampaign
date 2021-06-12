@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WestWingCampaign">
         <activity android:name=".ui.activities.MainActivity"
-            android:theme="@style/Theme.FullScreen"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

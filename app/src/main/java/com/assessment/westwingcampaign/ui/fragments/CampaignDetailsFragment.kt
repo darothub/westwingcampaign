@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -36,12 +37,17 @@ class CampaignDetailsFragment : Fragment(R.layout.fragment_campaign_details), It
     private val arg by navArgs<CampaignDetailsFragmentArgs>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
         campaignViewAdapter = CampaignSingleViewAdapter(this)
     }
     override fun onResume() {
         super.onResume()
         setUpData()
+        setupViewPager()
+    }
+
+    private fun setupViewPager() {
         binding.campaignDetailsVp2.adapter = campaignViewAdapter
         binding.campaignDetailsVp2.post {
             binding.campaignDetailsVp2.setCurrentItem(arg.position, false)
@@ -61,13 +67,11 @@ class CampaignDetailsFragment : Fragment(R.layout.fragment_campaign_details), It
     }
 
     override fun callNow() {
-        Toast.makeText(requireContext(), "Call", Toast.LENGTH_SHORT).show()
         val bool = ExcuseMe.doWeHavePermissionFor(requireContext(), Manifest.permission.CALL_PHONE)
         if (!bool) {
             checkPermission()
         } else {
             callSupport()
-            Toast.makeText(requireContext(), "We have", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -77,7 +81,6 @@ class CampaignDetailsFragment : Fragment(R.layout.fragment_campaign_details), It
         ) {
             if (it.granted.contains(Manifest.permission.CALL_PHONE)) {
                 callSupport()
-                Toast.makeText(requireContext(), "Granted", Toast.LENGTH_SHORT).show()
             } else {
                 lifecycleScope.launchWhenStarted {
                     ExcuseMe.couldYouGive(requireActivity()).gently(
@@ -93,5 +96,10 @@ class CampaignDetailsFragment : Fragment(R.layout.fragment_campaign_details), It
         val callIntent = Intent(Intent.ACTION_CALL)
         callIntent.data = Uri.parse("tel:+498941207272")
         startActivity(callIntent)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
 }

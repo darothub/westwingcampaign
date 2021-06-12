@@ -1,9 +1,6 @@
 package com.darotpeacedude.core.utils
 
 import android.app.Activity
-import android.app.Dialog
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.view.View
 import android.view.WindowInsets
@@ -81,21 +78,8 @@ fun Activity.hideSystemUI() {
     } else {
         @Suppress("DEPRECATION")
         window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-    }
-}
-fun Activity.networkDialog(): Dialog {
-    return Dialog(this, R.style.DialogTheme).apply {
-        setContentView(R.layout.network_error_layout)
-        val lp = WindowManager.LayoutParams()
-        lp.copyFrom(this.window!!.attributes)
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
-        val window = this.window
-        window?.attributes = lp
-        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        setCanceledOnTouchOutside(false)
     }
 }

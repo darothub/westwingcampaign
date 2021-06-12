@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="ctransparent">#6FEAE4E4</color>
-    <color name="colorPrimaryDark">#FF6200EE</color>
-    <color name="colorPrimary">#FFBB86FC</color>
+    <color name="colorSecondary">#efeee7</color>
+    <color name="colorPrimaryDark">#FF000000</color>
+    <color name="colorPrimary">#5cb9aa</color>
 </resources>

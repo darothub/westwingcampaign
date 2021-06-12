@@ -1,17 +1,15 @@
 package com.assessment.westwingcampaign.ui.activities
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.assessment.data.campaign.viewmodel.CampaignListViewModel
 import com.assessment.westwingcampaign.databinding.ActivityMainBinding
-import com.darotpeacedude.core.utils.hideSystemUI
-import com.darotpeacedude.core.utils.show
 import com.darotpeacedude.eivom.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import java.net.UnknownHostException
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -21,10 +19,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val view = binding.root
         setContentView(view)
-        hideSystemUI()
 
         binding.networkLayout.retryBtn.setOnClickListener {
-            campaignListViewModel.networkMonitor()
+            recreate()
         }
     }
 
@@ -37,12 +34,15 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchWhenCreated {
             campaignListViewModel.netWorkStateFlow.collectLatest {
                 if (it) {
-                    campaignListViewModel.getCampaignData()
+                    try {
+                        campaignListViewModel.getCampaignData()
+                    } catch (e: Exception) {
+                        if ((e !is UnknownHostException)) binding.networkLayout.networkErrorMessageIv.text = e.message
+                        binding.mainVf.showNext()
+                    }
                     binding.mainVf.displayedChild = 0
-                    Toast.makeText(this@MainActivity, "true", Toast.LENGTH_SHORT).show()
                 } else {
                     binding.mainVf.showNext()
-                    Toast.makeText(this@MainActivity, "false", Toast.LENGTH_SHORT).show()
                 }
             }
         }

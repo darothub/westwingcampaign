@@ -3,7 +3,9 @@ package com.assessment.westwingcampaign.ui.fragments
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -33,6 +35,13 @@ class LandingFragment : Fragment(R.layout.fragment_landing), ItemZoomListener {
     private val binding by viewBinding(FragmentLandingBinding::bind)
     private val campaignListViewModel: CampaignListViewModel by activityViewModels()
     lateinit var campaignViewAdapter: CampaignListViewAdapter
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         campaignViewAdapter = CampaignListViewAdapter(this)
