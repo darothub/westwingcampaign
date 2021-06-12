@@ -21,7 +21,7 @@
             android:textStyle="bold"
             android:text="@string/campaign_name"
             />
-        <ImageView
+        <com.github.chrisbanes.photoview.PhotoView
             android:id="@+id/campaign_image_iv"
             android:layout_width="0dp"
             android:layout_height="0dp"

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.assessment.data.campaign.model.CampaignDetails
 import com.assessment.westwingcampaign.databinding.CampaignItemLayoutBinding
 
-class CampaignViewAdapter(var listener: (CampaignDetails, Int) -> Unit) : RecyclerView.Adapter<CampaignListViewHolder>() {
+class CampaignListViewAdapter(var listener: ItemZoomListener) : RecyclerView.Adapter<CampaignListViewHolder>() {
     var list = ArrayList<CampaignDetails>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CampaignListViewHolder {
         val binding = CampaignItemLayoutBinding
@@ -24,4 +24,8 @@ class CampaignViewAdapter(var listener: (CampaignDetails, Int) -> Unit) : Recycl
         list.addAll(withName)
         notifyDataSetChanged()
     }
+}
+
+interface ItemZoomListener {
+    fun navigate(position: Int)
 }

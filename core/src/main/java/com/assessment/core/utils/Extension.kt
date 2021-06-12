@@ -8,6 +8,7 @@ import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 
 /**
@@ -51,10 +52,10 @@ fun Fragment.goto(destinationId: Int) {
 /**
  * Navigate to destination id
  *
- * @param destinationId
+ * @param direction
  */
-fun Fragment.goto(destinationId: NavDirections) {
-    findNavController().navigate(destinationId)
+fun Fragment.goto(direction: NavDirections) {
+    Navigation.findNavController(requireView()).navigate(direction)
 }
 
 /**
@@ -62,7 +63,7 @@ fun Fragment.goto(destinationId: NavDirections) {
  *
  */
 fun Fragment.gotoUp() {
-    findNavController().navigateUp()
+    Navigation.findNavController(requireView()).navigateUp()
 }
 
 fun Activity.hideSystemUI() {

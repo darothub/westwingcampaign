@@ -18,6 +18,7 @@ def hilt_compiler_version = "2.36"
 def logger_version = "4.9.1"
 def lottie_version ="3.7.0"
 def excuse_me_version ="0.9.5"
+def photo_view_version = "2.3.0"
 
 
 ext {
@@ -40,6 +41,9 @@ ext {
 
             //coil
             "io.coil-kt:coil:$coil_version",
+            //photoview
+            "com.github.chrisbanes:PhotoView:$photo_view_version",
+            "com.zolad:zoominimageview:1.0.0",
 
             //permission
             "com.github.AraujoJordan:ExcuseMe:$excuse_me_version",

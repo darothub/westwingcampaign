@@ -31,6 +31,18 @@ allprojects {
         jcenter()
         maven { url "https://jitpack.io" }
     }
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xmaxerrs" << "5000"
+        }
+    }
+    subprojects {
+        afterEvaluate {
+            if (project.plugins.hasPlugin("kotlin-kapt")) {
+                kapt { javacOptions { option("-Xmaxerrs", 1000) } }
+            }
+        }
+    }
 
 }
 
