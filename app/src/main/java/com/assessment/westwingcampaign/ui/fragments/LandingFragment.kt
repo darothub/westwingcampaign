@@ -4,9 +4,8 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +16,7 @@ import com.assessment.westwingcampaign.ui.adapters.CampaignViewAdapter
 import com.assessment.westwingcampaign.ui.adapters.ItemSpaceDecoration
 import com.assessment.westwingcampaign.utils.checkOrientation
 import com.darotpeacedude.core.utils.getName
+import com.darotpeacedude.core.utils.goto
 import com.darotpeacedude.eivom.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -30,16 +30,14 @@ import kotlinx.coroutines.flow.collectLatest
 class LandingFragment : Fragment(R.layout.fragment_landing) {
     private val TAG by lazy { getName() }
     private val binding by viewBinding(FragmentLandingBinding::bind)
-    private val campaignListViewModel: CampaignListViewModel by viewModels()
+    private val campaignListViewModel: CampaignListViewModel by activityViewModels()
     lateinit var campaignViewAdapter: CampaignViewAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launchWhenStarted {
-            campaignListViewModel.getCampaignData()
-        }
-        campaignViewAdapter = CampaignViewAdapter {
-            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
+        campaignViewAdapter = CampaignViewAdapter { _, pos ->
+            val direction = LandingFragmentDirections.actionLandingFragmentToCampaignDetailsFragment(pos)
+            goto(direction)
         }
     }
 

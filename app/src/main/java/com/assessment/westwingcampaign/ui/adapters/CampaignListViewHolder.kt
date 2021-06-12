@@ -10,7 +10,7 @@ class CampaignListViewHolder(private val binding: CampaignItemLayoutBinding) : R
 
     var campaignDetails: CampaignDetails? = null
 
-    fun bindTo(campaignDetails: CampaignDetails?, listener: (CampaignDetails) -> Unit) {
+    fun bindTo(campaignDetails: CampaignDetails?, position: Int, listener: (CampaignDetails, Int) -> Unit) {
         this.campaignDetails = campaignDetails
         binding.campaignNameTv.text = campaignDetails?.name
         binding.campaignImageIv.load(campaignDetails?.image?.url) {
@@ -19,7 +19,7 @@ class CampaignListViewHolder(private val binding: CampaignItemLayoutBinding) : R
         }
         binding.root.setOnClickListener {
             if (campaignDetails != null) {
-                listener(campaignDetails)
+                listener(campaignDetails, position)
             }
         }
     }

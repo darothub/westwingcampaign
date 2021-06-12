@@ -8,10 +8,19 @@
         android:id="@+id/landingFragment"
         android:name="com.assessment.westwingcampaign.ui.fragments.LandingFragment"
         android:label="fragment_landing"
-        tools:layout="@layout/fragment_landing" />
+        tools:layout="@layout/fragment_landing" >
+        <action
+            android:id="@+id/action_landingFragment_to_campaignDetailsFragment"
+            app:destination="@id/campaignDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/campaignDetailsFragment"
         android:name="com.assessment.westwingcampaign.ui.fragments.CampaignDetailsFragment"
         android:label="fragment_campaign_details"
-        tools:layout="@layout/fragment_campaign_details" />
+        tools:layout="@layout/fragment_campaign_details" >
+        <argument
+            android:name="position"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

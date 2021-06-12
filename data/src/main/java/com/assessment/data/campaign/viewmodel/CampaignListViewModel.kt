@@ -6,6 +6,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.util.Log
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.assessment.data.campaign.model.CampaignDetails
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CampaignListViewModel @Inject constructor(
     private val repositoryImpl: CampaignRepository,
-    @ApplicationContext val appContext: Context
+    @ApplicationContext val appContext: Context,
+    val handle: SavedStateHandle
 ) : ViewModel() {
     private val TAG by lazy { this::class.qualifiedName!! }
     private val _netWorkStateFlow = MutableStateFlow(false)

@@ -4,19 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.assessment.data.campaign.model.CampaignDetails
-import com.assessment.westwingcampaign.databinding.CampaignItemLayoutBinding
+import com.assessment.westwingcampaign.databinding.CampaignDetailSingleItemBinding
 
-class CampaignViewAdapter(var listener: (CampaignDetails, Int) -> Unit) : RecyclerView.Adapter<CampaignListViewHolder>() {
+class CampaignSingleViewAdapter(var listener: ItemClickListener) : RecyclerView.Adapter<CampaignSingleViewHolder>() {
     var list = ArrayList<CampaignDetails>()
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CampaignListViewHolder {
-        val binding = CampaignItemLayoutBinding
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CampaignSingleViewHolder {
+        val binding = CampaignDetailSingleItemBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-        return CampaignListViewHolder(binding)
+        return CampaignSingleViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CampaignListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CampaignSingleViewHolder, position: Int) {
         val item = list[position]
-        holder.bindTo(item, position, listener)
+        holder.bindTo(item, listener)
     }
     override fun getItemCount(): Int = list.size
     fun setData(newList: List<CampaignDetails>) {
@@ -24,4 +24,7 @@ class CampaignViewAdapter(var listener: (CampaignDetails, Int) -> Unit) : Recycl
         list.addAll(withName)
         notifyDataSetChanged()
     }
+}
+interface ItemClickListener {
+    fun navigate()
 }

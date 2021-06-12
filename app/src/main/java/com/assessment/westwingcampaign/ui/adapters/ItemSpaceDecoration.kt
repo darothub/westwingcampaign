@@ -1,6 +1,5 @@
 package com.assessment.westwingcampaign.ui.adapters
 
-import android.content.Context
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -28,4 +27,3 @@ class ItemSpaceDecoration(private val space: Int, private val columns: Int) : It
         }
     }
 }
-
