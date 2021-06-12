@@ -25,4 +25,10 @@
         <item name="colorControlActivated">@color/white</item>
         <item name="colorControlHighlight">@color/purple_500</item>
     </style>
+    <style name="DialogTheme" parent="@style/Base.Theme.AppCompat.Light.Dialog">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:background">@color/ctransparent</item>
+    </style>
 </resources>

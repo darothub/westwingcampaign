@@ -6,13 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.MainActivity">
 
-
-    <fragment
-        android:id="@+id/fragment2"
-        android:name="androidx.navigation.fragment.NavHostFragment"
+    <ViewFlipper
+        android:id="@+id/main_vf"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:navGraph="@navigation/main_nav_graph" />
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/fragment2"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/main_nav_graph" />
+
+        <include
+            android:id="@+id/network_layout"
+            layout="@layout/network_error_layout"/>
+    </ViewFlipper>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
