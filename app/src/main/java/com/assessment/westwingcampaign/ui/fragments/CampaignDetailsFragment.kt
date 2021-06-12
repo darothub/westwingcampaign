@@ -6,7 +6,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -22,6 +21,7 @@ import com.darotpeacedude.core.utils.gotoUp
 import com.darotpeacedude.eivom.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
@@ -82,7 +82,7 @@ class CampaignDetailsFragment : Fragment(R.layout.fragment_campaign_details), It
             if (it.granted.contains(Manifest.permission.CALL_PHONE)) {
                 callSupport()
             } else {
-                lifecycleScope.launchWhenStarted {
+                lifecycleScope.launch {
                     ExcuseMe.couldYouGive(requireActivity()).gently(
                         "Permission Request",
                         "To easily contact westwing support, grant the app call permission"

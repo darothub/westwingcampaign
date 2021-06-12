@@ -42,10 +42,12 @@ class CampaignListViewModel @Inject constructor(
         val networkCallback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
                 _netWorkStateFlow.value = true
+                Log.i(TAG, "Here")
             }
 
             override fun onLost(network: Network) {
                 _netWorkStateFlow.value = false
+                Log.i(TAG, "LostHere")
             }
         }
 

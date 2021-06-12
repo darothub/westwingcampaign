@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.networkLayout.retryBtn.setOnClickListener {
-            recreate()
+            campaignListViewModel.networkMonitor()
         }
     }
 
