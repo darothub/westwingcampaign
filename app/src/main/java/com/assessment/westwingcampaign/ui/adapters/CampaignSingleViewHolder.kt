@@ -24,5 +24,8 @@ class CampaignSingleViewHolder(private val binding: CampaignDetailSingleItemBind
                 listener.navigate()
             }
         }
+        binding.bs.callBtn.setOnClickListener {
+            listener.callNow()
+        }
     }
 }

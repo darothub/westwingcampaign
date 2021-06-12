@@ -17,6 +17,7 @@ def desugar_lib_version = "1.1.5"
 def hilt_compiler_version = "2.36"
 def logger_version = "4.9.1"
 def lottie_version ="3.7.0"
+def excuse_me_version ="0.9.5"
 
 
 ext {
@@ -39,6 +40,9 @@ ext {
 
             //coil
             "io.coil-kt:coil:$coil_version",
+
+            //permission
+            "com.github.AraujoJordan:ExcuseMe:$excuse_me_version",
 
             //dimens
             "com.intuit.sdp:sdp-android:$sdp_version",

@@ -27,4 +27,5 @@ class CampaignSingleViewAdapter(var listener: ItemClickListener) : RecyclerView.
 }
 interface ItemClickListener {
     fun navigate()
+    fun callNow()
 }
