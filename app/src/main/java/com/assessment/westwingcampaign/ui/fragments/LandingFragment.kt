@@ -1,28 +1,27 @@
 package com.assessment.westwingcampaign.ui.fragments
 
+import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.assessment.data.campaign.model.CampaignDetails
 import com.assessment.data.campaign.viewmodel.CampaignListViewModel
 import com.assessment.westwingcampaign.R
 import com.assessment.westwingcampaign.databinding.FragmentLandingBinding
+import com.assessment.westwingcampaign.ui.activities.ActivityUiStateListener
 import com.assessment.westwingcampaign.ui.adapters.CampaignListViewAdapter
 import com.assessment.westwingcampaign.ui.adapters.ItemSpaceDecoration
 import com.assessment.westwingcampaign.ui.adapters.ItemZoomListener
 import com.assessment.westwingcampaign.utils.checkOrientation
-import com.darotpeacedude.core.utils.getName
-import com.darotpeacedude.core.utils.goto
+import com.assessment.westwingcampaign.utils.extensions.getName
+import com.assessment.westwingcampaign.utils.extensions.goto
+import com.assessment.westwingcampaign.utils.extensions.setUpUiState
 import com.darotpeacedude.eivom.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 
 /**
  * A simple [Fragment] subclass.
@@ -30,21 +29,18 @@ import kotlinx.coroutines.flow.collectLatest
  * create an instance of this fragment.
  */
 @AndroidEntryPoint
-class LandingFragment : Fragment(R.layout.fragment_landing), ItemZoomListener {
+class LandingFragment : Fragment(R.layout.fragment_landing), ItemZoomListener, FragmentUiStateListener {
     private val TAG by lazy { getName() }
     private val binding by viewBinding(FragmentLandingBinding::bind)
     private val campaignListViewModel: CampaignListViewModel by activityViewModels()
     lateinit var campaignViewAdapter: CampaignListViewAdapter
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
+    lateinit var activityUiState: ActivityUiStateListener
+    lateinit var fragmentUiUpdate: FragmentUiStateListener
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         campaignViewAdapter = CampaignListViewAdapter(this)
+        fragmentUiUpdate = this
     }
 
     override fun onResume() {
@@ -54,12 +50,7 @@ class LandingFragment : Fragment(R.layout.fragment_landing), ItemZoomListener {
     }
 
     private fun setUpData() {
-        lifecycleScope.launchWhenStarted {
-            campaignListViewModel.campaignStateFlow.collectLatest {
-                Log.i(TAG, it.toString())
-                campaignViewAdapter.setData(it)
-            }
-        }
+        setUpUiState(campaignListViewModel.campaignUiState, fragmentUiUpdate)
     }
 
     private fun setupView() {
@@ -82,5 +73,27 @@ class LandingFragment : Fragment(R.layout.fragment_landing), ItemZoomListener {
     override fun navigate(position: Int) {
         val direction = LandingFragmentDirections.actionLandingFragmentToCampaignDetailsFragment(position)
         goto(direction)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activityUiState = requireActivity() as ActivityUiStateListener
+    }
+
+    override fun <T> onSuccess(data: T) {
+        campaignViewAdapter.setData(data as? List<CampaignDetails>)
+        activityUiState.displayDataFragment()
+    }
+
+    override fun onError(error: String?) {
+        activityUiState.showErrorPage(error)
+    }
+
+    override fun onNetworkError() {
+        activityUiState.showErrorPage(null)
+    }
+
+    override fun loading() {
+        activityUiState.loading()
     }
 }
