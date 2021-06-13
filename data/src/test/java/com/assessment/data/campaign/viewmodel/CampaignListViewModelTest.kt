@@ -18,17 +18,22 @@ import kotlinx.coroutines.test.setMain
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
+import org.mockito.Mockito.verify
 
 class CampaignListViewModelTest{
     private lateinit var viewModel: CampaignListViewModel
-    val dispatcher = TestCoroutineDispatcher()
+    @ExperimentalCoroutinesApi
+    private val dispatcher = TestCoroutineDispatcher()
+    private lateinit var repository: FakeCampaignRepository
 
     @Before
     fun setUp() {
         Dispatchers.setMain(dispatcher)
-        viewModel = CampaignListViewModel(FakeCampaignRepository(), null)
+        repository = FakeCampaignRepository()
+        viewModel = CampaignListViewModel(repository, null)
     }
     @After
     fun tearDown() {
@@ -37,8 +42,21 @@ class CampaignListViewModelTest{
 
     @ExperimentalCoroutinesApi
     @Test
+    fun `fetch campaign data, return list of campaign detail `() = runBlockingTest{
+        val list = viewModel.getCampaignDetailsForTest()
+        assertNotNull(list)
+    }
+    @ExperimentalCoroutinesApi
+    @Test
     fun `fetch campaign data, return list of campaign detail with name and description`() = runBlockingTest{
         val list = viewModel.getCampaignDetailsForTest()
         assertEquals(list.size, 2)
+    }
+    @ExperimentalCoroutinesApi
+    @Test
+    fun `fetch campaign data, confirm item has name and description`() = runBlockingTest{
+        val list = viewModel.getCampaignDetailsForTest()
+        assertEquals(list[0], CampaignDetailMockList.list()[0])
+        assertEquals(list[1], CampaignDetailMockList.list()[1])
     }
 }
