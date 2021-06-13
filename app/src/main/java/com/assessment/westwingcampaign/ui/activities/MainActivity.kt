@@ -9,6 +9,7 @@ import com.assessment.westwingcampaign.databinding.ActivityMainBinding
 import com.darotpeacedude.eivom.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.net.UnknownHostException
 
 @AndroidEntryPoint
@@ -19,7 +20,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val view = binding.root
         setContentView(view)
-
         binding.networkLayout.retryBtn.setOnClickListener {
             campaignListViewModel.networkMonitor()
         }
@@ -37,12 +37,13 @@ class MainActivity : AppCompatActivity() {
                     try {
                         campaignListViewModel.getCampaignData()
                     } catch (e: Exception) {
-                        if ((e !is UnknownHostException)) binding.networkLayout.networkErrorMessageIv.text = e.message
-                        binding.mainVf.showNext()
+                        if ((e !is UnknownHostException)) binding.networkLayout.networkErrorMessageIv.text =
+                            e.message
+                        binding.mainVf.displayedChild = 1
                     }
                     binding.mainVf.displayedChild = 0
                 } else {
-                    binding.mainVf.showNext()
+                    binding.mainVf.displayedChild = 1
                 }
             }
         }

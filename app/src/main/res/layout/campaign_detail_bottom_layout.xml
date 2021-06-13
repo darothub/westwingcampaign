@@ -46,6 +46,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:backgroundTint="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/description_tv"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="@string/call_now"/>
