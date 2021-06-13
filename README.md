@@ -25,5 +25,6 @@ connection and try again."
   
   
 ### Demo
-![Demo 1](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
-![Demo 2](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![Demo 1](https://media.giphy.com/media/D9bG04mMUJcVvihZJN/giphy.gif)
+![Demo 2](https://media.giphy.com/media/uJ1kQXFMNnKFMMrKMy/giphy.gif)
+
