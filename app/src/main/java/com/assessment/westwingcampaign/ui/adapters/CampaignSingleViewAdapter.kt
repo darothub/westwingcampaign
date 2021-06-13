@@ -27,7 +27,3 @@ class CampaignSingleViewAdapter(var listener: ItemClickListener) : RecyclerView.
         notifyDataSetChanged()
     }
 }
-interface ItemClickListener {
-    fun navigate()
-    fun callNow()
-}

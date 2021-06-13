@@ -26,10 +26,6 @@ class CampaignListViewModel @Inject constructor(
     @ApplicationContext val appContext: Context
 ) : ViewModel() {
     private val TAG by lazy { this::class.qualifiedName!! }
-    private val _netWorkStateFlow = MutableStateFlow(false)
-    val netWorkStateFlow get() = _netWorkStateFlow
-    private val _campaignStateFlow = MutableStateFlow(emptyList<CampaignDetails>())
-    val campaignStateFlow get() = _campaignStateFlow
     private val _campaignUiState = MutableStateFlow<CampaignUiState>(CampaignUiState.Nothing)
     val campaignUiState:StateFlow<CampaignUiState> get() = _campaignUiState
 

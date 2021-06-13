@@ -27,7 +27,3 @@ class CampaignListViewAdapter(var listener: ItemZoomListener) : RecyclerView.Ada
         notifyDataSetChanged()
     }
 }
-
-interface ItemZoomListener {
-    fun navigate(position: Int)
-}
