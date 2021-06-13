@@ -6,6 +6,7 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.assessment.data.campaign.model.CampaignDetails
@@ -58,7 +59,8 @@ class CampaignListViewModel @Inject constructor(
         }
     }
 
-    suspend fun getCampaignDetailsForTest() = repositoryImpl.getCampaigns()
+    @VisibleForTesting
+    internal suspend fun getCampaignDetailsForTest() = repositoryImpl.getCampaigns()
 
 
 

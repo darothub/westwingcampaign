@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.fragment.app.Fragment
@@ -46,13 +47,10 @@ class CampaignDetailsFragment : Fragment(R.layout.fragment_campaign_details), It
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         fragmentUiStateListener = this
         campaignViewAdapter = CampaignSingleViewAdapter(this)
-    }
-    override fun onResume() {
-        super.onResume()
         setUpData()
         setupViewPager()
+        Log.i(TAG, "ONVIEWCREATED")
     }
-
     private fun setupViewPager() {
         binding.campaignDetailsVp2.adapter = campaignViewAdapter
         binding.campaignDetailsVp2.post {
@@ -96,7 +94,7 @@ class CampaignDetailsFragment : Fragment(R.layout.fragment_campaign_details), It
 
     private fun callSupport() {
         val callIntent = Intent(Intent.ACTION_CALL)
-        callIntent.data = Uri.parse("tel:+498941207272")
+        callIntent.data = Uri.parse(getString(R.string.support_number))
         startActivity(callIntent)
     }
 
