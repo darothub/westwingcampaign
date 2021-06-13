@@ -22,8 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CampaignListViewModel @Inject constructor(
     private val repositoryImpl: CampaignRepository,
-    private val networkRepositoryImpl: NetworkRepository,
-    @ApplicationContext val appContext: Context
+    private val networkRepositoryImpl: NetworkRepository?
 ) : ViewModel() {
     private val TAG by lazy { this::class.qualifiedName!! }
     private val _campaignUiState = MutableStateFlow<CampaignUiState>(CampaignUiState.Nothing)
@@ -32,8 +31,8 @@ class CampaignListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            networkRepositoryImpl.getNetworkStatus()
-                .collect {
+            networkRepositoryImpl?.getNetworkStatus()
+                ?.collect {
                     if (!it) {
                         _campaignUiState.value = CampaignUiState.NetworkError
                     }
@@ -46,7 +45,7 @@ class CampaignListViewModel @Inject constructor(
         _campaignUiState.value = CampaignUiState.Loading
         try {
             val campaigns = repositoryImpl.getCampaigns()
-            _campaignUiState.value = CampaignUiState.Success(campaigns.metadata.data)
+            _campaignUiState.value = CampaignUiState.Success(campaigns)
         }
         catch (e:Throwable){
             if (e is UnknownHostException){
@@ -59,6 +58,7 @@ class CampaignListViewModel @Inject constructor(
         }
     }
 
+    suspend fun getCampaignDetailsForTest() = repositoryImpl.getCampaigns()
 
 
 

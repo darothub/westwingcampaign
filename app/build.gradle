@@ -22,7 +22,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.assessment.westwingcampaign.HiltTestRunner"
     }
 
     buildTypes {
@@ -47,6 +47,9 @@ kotlinter {
     experimentalRules = false
     disabledRules = ["no-wildcard-imports"]
 }
+hilt {
+    enableTransformForLocalTests = true
+}
 preBuild.dependsOn(formatKotlin)
 
 dependencies {
@@ -58,4 +61,5 @@ dependencies {
     testImplementation testLibraries
     androidTestImplementation androidTestLibraries
     debugImplementation debugLibraries
+    kaptAndroidTest kaptAndroidTestLibs
 }

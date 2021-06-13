@@ -20,9 +20,8 @@ class CampaignListViewAdapter(var listener: ItemZoomListener) : RecyclerView.Ada
     }
     override fun getItemCount(): Int = list.size
     fun setData(newList: List<CampaignDetails>?) {
-        val withName = newList?.filter { !(it.name.isNullOrEmpty() || it.description.isNullOrEmpty()) }
-        if (withName != null) {
-            list.addAll(withName)
+        if (newList != null) {
+            list.addAll(newList)
         }
         notifyDataSetChanged()
     }
