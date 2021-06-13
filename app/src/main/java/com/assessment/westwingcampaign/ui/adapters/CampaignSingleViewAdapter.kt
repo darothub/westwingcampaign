@@ -19,13 +19,11 @@ class CampaignSingleViewAdapter(var listener: ItemClickListener) : RecyclerView.
         holder.bindTo(item, listener)
     }
     override fun getItemCount(): Int = list.size
-    fun setData(newList: List<CampaignDetails>) {
-        val withName = newList.filter { !(it.name.isNullOrEmpty() || it.description.isNullOrEmpty()) }
-        list.addAll(withName)
+    fun setData(newList: List<CampaignDetails>?) {
+        val withName = newList?.filter { !(it.name.isNullOrEmpty() || it.description.isNullOrEmpty()) }
+        if (withName != null) {
+            list.addAll(withName)
+        }
         notifyDataSetChanged()
     }
-}
-interface ItemClickListener {
-    fun navigate()
-    fun callNow()
 }
