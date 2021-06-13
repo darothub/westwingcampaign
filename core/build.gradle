@@ -60,5 +60,5 @@ dependencies {
     coreLibraryDesugaring coreLibDesugaring
     testImplementation testLibraries
     androidTestImplementation androidTestLibraries
-    debugImplementation debugLibraries
+    kaptAndroidTest kaptAndroidTestLibs
 }

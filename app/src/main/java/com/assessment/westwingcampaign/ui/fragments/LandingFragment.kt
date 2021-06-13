@@ -56,13 +56,13 @@ class LandingFragment : Fragment(R.layout.fragment_landing), ItemZoomListener, F
     private fun setupView() {
         val orientation = checkOrientation()
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            binding.campaignListErcv.apply {
+            binding.campaignLandscapeRcv?.apply {
                 layoutManager = GridLayoutManager(requireContext(), 2)
                 adapter = campaignViewAdapter
                 addItemDecoration(ItemSpaceDecoration(8, 2))
             }
         } else {
-            binding.campaignListErcv.apply {
+            binding.campaignListRcv?.apply {
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = campaignViewAdapter
                 addItemDecoration(ItemSpaceDecoration(8, 1))
