@@ -14,7 +14,7 @@ This task ticks all the features listed below
 - On tapping “Call Now, request permission & call the Westwing customer support
 - The user is be able to return to the list after the call
 - (Optional) Swiping left or right opens the previous/next campaign in the list
-- (Optional) Allows transition from the main screen to the detail screen by zooming the image
+
 ### Optional:
 - Displays an error screen when there is a networking problem.
 - The error message say: "There was an error. Please check your internet
