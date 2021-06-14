@@ -18,6 +18,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="O_MR1">shortEdges</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowActivityTransitions">true</item>
     </style>
     <style name="DialogTheme" parent="@style/Base.Theme.AppCompat.Light.Dialog">
         <item name="android:windowTranslucentStatus">true</item>

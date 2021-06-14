@@ -11,7 +11,9 @@
         tools:layout="@layout/fragment_landing" >
         <action
             android:id="@+id/action_landingFragment_to_campaignDetailsFragment"
-            app:destination="@id/campaignDetailsFragment" />
+            app:destination="@id/campaignDetailsFragment"
+
+        />
     </fragment>
     <fragment
         android:id="@+id/campaignDetailsFragment"

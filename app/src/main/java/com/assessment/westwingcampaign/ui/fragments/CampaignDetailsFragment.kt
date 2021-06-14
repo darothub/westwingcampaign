@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -42,11 +43,19 @@ class CampaignDetailsFragment : Fragment(R.layout.fragment_campaign_details), It
     lateinit var fragmentUiStateListener: FragmentUiStateListener
     private val arg by navArgs<CampaignDetailsFragmentArgs>()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         fragmentUiStateListener = this
         campaignViewAdapter = CampaignSingleViewAdapter(this)
+
         setUpData()
         setupViewPager()
         Log.i(TAG, "ONVIEWCREATED")

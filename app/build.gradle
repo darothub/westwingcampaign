@@ -54,7 +54,11 @@ preBuild.dependsOn(formatKotlin)
 
 dependencies {
     implementation project(':core')
+    implementation 'com.zolad:zoominimageview:1.0.0'
 
+    implementation 'com.aghajari.zoomhelper:ZoomHelper:1.0.1'
+
+    implementation 'com.cuneytayyildiz:gestureimageview:1.0.0'
     implementation libs
     kapt kaptLibs
     coreLibraryDesugaring coreLibDesugaring

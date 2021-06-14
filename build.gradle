@@ -11,6 +11,7 @@ buildscript {
             url "https://plugins.gradle.org/m2/"
         }
         maven { url "https://jitpack.io" }
+        maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local' }
     }
     dependencies {
         def nav_version = "2.3.4"

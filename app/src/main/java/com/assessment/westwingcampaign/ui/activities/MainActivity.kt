@@ -1,9 +1,11 @@
 package com.assessment.westwingcampaign.ui.activities
 
 import android.os.Bundle
+import android.view.MotionEvent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.aghajari.zoomhelper.ZoomHelper
 import com.assessment.data.campaign.viewmodel.CampaignListViewModel
 import com.assessment.westwingcampaign.databinding.ActivityMainBinding
 import com.assessment.westwingcampaign.utils.extensions.hide
@@ -47,5 +49,8 @@ class MainActivity : AppCompatActivity(), ActivityUiStateListener {
 
     override fun displayDataFragment() {
         binding.mainVf.displayedChild = 0
+    }
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        return ZoomHelper.getInstance().dispatchTouchEvent(ev!!, this) || super.dispatchTouchEvent(ev)
     }
 }
