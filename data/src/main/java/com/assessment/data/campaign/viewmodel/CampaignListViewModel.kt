@@ -28,6 +28,7 @@ class CampaignListViewModel @Inject constructor(
     private val TAG by lazy { this::class.qualifiedName!! }
     private val _campaignUiState = MutableStateFlow<CampaignUiState>(CampaignUiState.Nothing)
     val campaignUiState:StateFlow<CampaignUiState> get() = _campaignUiState
+    var adapterPosition = 0
 
 
     init {

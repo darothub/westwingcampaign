@@ -17,6 +17,7 @@ class CampaignListViewAdapter(var listener: ItemZoomListener) : RecyclerView.Ada
     override fun onBindViewHolder(holder: CampaignListViewHolder<CampaignItemLayoutBinding>, position: Int) {
         val item = list[position]
         holder.bindTo(item, position, listener)
+        holder.setIsRecyclable(false)
     }
     override fun getItemCount(): Int = list.size
     fun setData(newList: List<CampaignDetails>?) {

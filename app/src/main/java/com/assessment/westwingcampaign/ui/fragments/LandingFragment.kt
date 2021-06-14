@@ -3,6 +3,7 @@ package com.assessment.westwingcampaign.ui.fragments
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -29,7 +30,10 @@ import dagger.hilt.android.AndroidEntryPoint
  * create an instance of this fragment.
  */
 @AndroidEntryPoint
-class LandingFragment : Fragment(R.layout.fragment_landing), ItemZoomListener, FragmentUiStateListener {
+class LandingFragment :
+    Fragment(R.layout.fragment_landing),
+    ItemZoomListener,
+    FragmentUiStateListener {
     private val TAG by lazy { getName() }
     private val binding by viewBinding(FragmentLandingBinding::bind)
     private val campaignListViewModel: CampaignListViewModel by activityViewModels()
@@ -47,6 +51,7 @@ class LandingFragment : Fragment(R.layout.fragment_landing), ItemZoomListener, F
         super.onResume()
         setupView()
         setUpData()
+        scrollToPosition(campaignListViewModel.adapterPosition)
     }
 
     private fun setUpData() {
@@ -56,22 +61,22 @@ class LandingFragment : Fragment(R.layout.fragment_landing), ItemZoomListener, F
     private fun setupView() {
         val orientation = checkOrientation()
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            binding.campaignLandscapeRcv?.apply {
+            binding.campaignListRcv.apply {
                 layoutManager = GridLayoutManager(requireContext(), 2)
-                adapter = campaignViewAdapter
                 addItemDecoration(ItemSpaceDecoration(8, 2))
             }
         } else {
-            binding.campaignListRcv?.apply {
+            binding.campaignListRcv.apply {
                 layoutManager = LinearLayoutManager(requireContext())
-                adapter = campaignViewAdapter
                 addItemDecoration(ItemSpaceDecoration(8, 1))
             }
         }
+        binding.campaignListRcv.adapter = campaignViewAdapter
     }
 
     override fun navigate(position: Int) {
-        val direction = LandingFragmentDirections.actionLandingFragmentToCampaignDetailsFragment(position)
+        val direction =
+            LandingFragmentDirections.actionLandingFragmentToCampaignDetailsFragment(position)
         goto(direction)
     }
 
@@ -95,5 +100,29 @@ class LandingFragment : Fragment(R.layout.fragment_landing), ItemZoomListener, F
 
     override fun loading() {
         activityUiState.loading()
+    }
+
+    private fun scrollToPosition(position: Int) {
+        binding.campaignListRcv.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
+            override fun onLayoutChange(
+                v: View?,
+                left: Int,
+                top: Int,
+                right: Int,
+                bottom: Int,
+                oldLeft: Int,
+                oldTop: Int,
+                oldRight: Int,
+                oldBottom: Int
+            ) {
+                binding.campaignListRcv.removeOnLayoutChangeListener(this)
+                Log.i(TAG, "${campaignListViewModel.adapterPosition}")
+                val layoutManager = binding.campaignListRcv.layoutManager
+                val viewAtPosition = layoutManager?.findViewByPosition(position)
+                if (viewAtPosition == null || layoutManager.isViewPartiallyVisible(viewAtPosition, false, true)) {
+                    binding.campaignListRcv.post { layoutManager?.scrollToPosition(position) }
+                }
+            }
+        })
     }
 }

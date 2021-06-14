@@ -17,6 +17,7 @@ class CampaignSingleViewAdapter(var listener: ItemClickListener) : RecyclerView.
     override fun onBindViewHolder(holder: CampaignListViewHolder<CampaignDetailSingleItemBinding>, position: Int) {
         val item = list[position]
         holder.bindTo(item, listener)
+        holder.setIsRecyclable(false)
     }
     override fun getItemCount(): Int = list.size
     fun setData(newList: List<CampaignDetails>?) {

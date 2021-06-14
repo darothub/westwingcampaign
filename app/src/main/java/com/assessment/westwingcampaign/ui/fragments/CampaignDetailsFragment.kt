@@ -72,6 +72,8 @@ class CampaignDetailsFragment : Fragment(R.layout.fragment_campaign_details), It
     }
 
     override fun navigate() {
+        campaignListViewModel.adapterPosition = binding.campaignDetailsVp2.currentItem
+        Log.i(TAG, "${binding.campaignDetailsVp2.currentItem}")
         gotoUp()
     }
 
